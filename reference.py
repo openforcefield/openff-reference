@@ -31,9 +31,6 @@ def _generate_reference(reference_inputs: Dict) -> pandas.DataFrame:
     force_field = ForceField(reference_inputs["force_field"])
     openmm_system = force_field.create_openmm_system(topology)
 
-    if not topology.box_vectors and force_field["vdW"].method == "cutoff":
-        openmm_system = _remove_vdw_cutoff(openmm_system)
-
     for i, force in enumerate(openmm_system.getForces()):
         if type(force) == openmm.PeriodicTorsionForce:
             original_torsion_force = force
