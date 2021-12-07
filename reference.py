@@ -108,4 +108,6 @@ results = pandas.DataFrame()
 for input in reference_inputs:
     results = pandas.concat([results, _generate_reference(input)])
 
+results.insert(0, "Total Energy", results.sum(axis=1))
+
 print(results)
